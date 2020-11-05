@@ -226,10 +226,8 @@ public class Interfaz extends JFrame {
                         
                         }
                     }
-                    double porc = (5/8);
-                    System.out.println("\n"+porc);
-                    codificado = Double.toString((cantidad.length()*100)/(letrasmsj.length*8));
-                    ahorro = Double.toString(100-((cantidad.length()*100)/(letrasmsj.length*8)));
+                    codificado = Double.toString((double)(cantidad.length()*100)/(letrasmsj.length*8));
+                    ahorro = Double.toString((double)(100-((double)(cantidad.length()*100)/(letrasmsj.length*8))));
 
                 } catch (Exception eas) {
                         System.out.println("errror de nuevo");
