@@ -36,7 +36,12 @@ public class HuffmanTable {
 	public int[] getDer() {
 		return der;
 	}
-
+        
+        public String getMatriz() {
+            return matriz;
+        }
+        
+        public String matriz;
 	private Character simbolo[];
 	private int frecuencia[];
 	private int padre[];
@@ -44,9 +49,20 @@ public class HuffmanTable {
 	private int izq[];
 	private int der[];
 	private int numS;
-	private int numC;
-	private int numCusadas;
+	public int numC;
+        public String codigo;
+        private int numCusadas;
+        
 	private ArrayList<Integer> letrasUsadas;
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+	
 
 	public HuffmanTable(int numSim) {
 		this.numS = numSim;
@@ -76,40 +92,44 @@ public class HuffmanTable {
 		}
 		this.construirTabla();
 		this.pintarTabla();
+                
 	}
 
 	public void pintarTabla() {
-		for (int j = 0; j < this.numC; j++) {
-			System.out.print(this.simbolo[j]);
-			System.out.print(" ");
+                String sim ="";
+                String frec ="";
+                String pad ="";
+                String tip ="";
+                String izq ="";
+                String der ="";
+                
+                for (int j = 0; j < this.numC; j++) {
+                        sim = sim + this.simbolo[j]+"\t";
 		}
 		System.out.println("");
 		for (int j = 0; j < this.numC; j++) {
-			System.out.print(this.frecuencia[j]);
-			System.out.print(" ");
+                        frec= frec+ this.frecuencia[j]+"\t";
 		}
 		System.out.println("");
 		for (int j = 0; j < this.numC; j++) {
-			System.out.print(this.padre[j]);
-			System.out.print(" ");
+                        pad = pad + this.padre[j]+"\t";
 		}
 		System.out.println("");
 		for (int j = 0; j < this.numC; j++) {
-			System.out.print(this.tipo[j]);
-			System.out.print(" ");
+                        tip = tip+this.tipo[j] +"\t";
 		}
 		System.out.println("");
 		for (int j = 0; j < this.numC; j++) {
-			System.out.print(this.izq[j]);
-			System.out.print(" ");
+                        izq= izq + this.izq[j] +"\t";
 		}
 		System.out.println("");
 		for (int j = 0; j < this.numC; j++) {
-			System.out.print(this.der[j]);
-			System.out.print(" ");
+                        der = der+this.der[j]+"\t";
 		}
 		System.out.println("");
+                this.matriz= sim+"\n"+frec+"\n"+pad+"\n"+tip+"\n"+izq+"\n"+der;
 	}
+       
 	
 	private void construirTabla() {
 		int i= this.numS;
@@ -154,39 +174,7 @@ public class HuffmanTable {
 		}
 	}
 	
-	/*private int[] minFre() {
-		int[] mF= new int[2];
-		int menor1= 0;
-		int menor2=0;
-		mF[0]=-1;
-		mF[1]=-1;
-		for(int i= 0; i<this.numCusadas; i++) {
-			if(this.letrasUsadas.contains(i)) {
-				System.out.println(this.letrasUsadas.toString());
-				continue;
-			}
-			if(menor1==0 && menor2==0) {
-				menor1=this.frecuencia[i];
-				mF[0]=i;
-				menor2=this.frecuencia[i];
-				mF[1]=i;
-			}else {
-				if(i+1<this.numC) {
-					if(menor1>this.frecuencia[i]) {
-						menor2=menor1;
-						mF[1]=mF[0];
-						menor1=this.frecuencia[i];
-						mF[0]=i;
-					}
-				}else {
-					break;
-				}
-			}
-		}
-		if(mF[0]>=0)this.letrasUsadas.add(mF[0]);
-		if(mF[1]>=0)this.letrasUsadas.add(mF[1]);
-		return mF;
-	}*/
+	
 	
 	public int menorF() {
 		int menor=0;
@@ -194,7 +182,7 @@ public class HuffmanTable {
 		
 		for(int i=0;i<this.numCusadas;i++) {
 			if(this.letrasUsadas.contains(i)) {
-				System.out.println(this.letrasUsadas.toString());
+//				System.out.println(this.letrasUsadas.toString());
 				continue;
 			}
 			if(menor==0) {
@@ -210,5 +198,7 @@ public class HuffmanTable {
 		if(imenor>-1)this.letrasUsadas.add(imenor);
 		return imenor;
 	}
+        
+        
 
 }

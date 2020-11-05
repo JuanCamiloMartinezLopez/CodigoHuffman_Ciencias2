@@ -6,8 +6,8 @@ import java.util.TreeMap;
 
 public class Huffman {
 	
-	String mensaje ="";
-	private HuffmanTable tabla;
+	
+	public HuffmanTable tabla;
 	
 	public Huffman(){
 		
@@ -30,6 +30,7 @@ public class Huffman {
 		System.out.println(letras.toString());
 		this.tabla= new HuffmanTable(letras.size());
 		this.tabla.inicializar(letras);
+                
 	}
 	
 	public int ultimoI() {
@@ -39,5 +40,23 @@ public class Huffman {
 	public HuffmanTable getTabla() {
 		return tabla;
 	}
+
+         public String [][]matrizHuffman(){
+            
+                String [][]tabla = new String [6][this.tabla.getNumC()];
+                for (int j = 0; j < this.tabla.getNumC(); j++){
+                    tabla[0][j]= Character.toString(this.tabla.getSimbolo()[j]);
+                    tabla[1][j]= Integer.toString(this.tabla.getFrecuencia()[j]);
+                    tabla[2][j]= Integer.toString(this.tabla.getPadre()[j]);
+                    tabla[3][j]= Integer.toString(this.tabla.getTipo()[j]);
+                    tabla[4][j]= Integer.toString(this.tabla.getIzq()[j]);
+                    tabla[5][j]= Integer.toString(this.tabla.getDer()[j]);
+                }
+                
+            return tabla;
+            
+        }
+        
+        
 
 }
