@@ -25,8 +25,8 @@ public class Interfaz extends JFrame {
 	public int flag;
 	public int WinWidth = 1000;
 	public int WinHeight = 600;
-	public int LROffset = 190;
-	public int DownOffset = 50;
+	public int LROffset = 50;
+	public int DownOffset = 0;
 	public int nodeD = 26;
 	public int levelOffset = 80;
 	public JPanel control;
@@ -43,6 +43,7 @@ public class Interfaz extends JFrame {
 	public HuffmanTable hTable;
         public JScrollPane matriz; 
         public JScrollPane txtencriptado; 
+        public JScrollPane scrollArbol;
         public String[] codigos;
         public char[] letrasmsj;
         public String valor="";
@@ -79,8 +80,14 @@ public class Interfaz extends JFrame {
 		lienzo.setBackground(Color.WHITE);
 		lienzo.setBorder(BorderFactory.createLineBorder(Color.black));
 		lienzo.setAutoscrolls(true);
-		this.getContentPane().add(lienzo);
+//		this.getContentPane().add(lienzo);
 
+                scrollArbol = new JScrollPane();
+                scrollArbol.setBounds(20, 190, this.WinWidth - 50, (int) (this.WinHeight - 320));
+                scrollArbol.setBackground(Color.WHITE);
+                scrollArbol.setBorder(BorderFactory.createLineBorder(Color.black));
+		this.getContentPane().add(scrollArbol);
+                scrollArbol.setViewportView(lienzo);                
 		labelPalabra = new JLabel("texto:");
 		labelPalabra.setBounds(15, 30, 50, 20);
 		// labelPalabra.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -157,19 +164,20 @@ public class Interfaz extends JFrame {
 
                
 	private void paintArbolH(int i, int x, int y, int level, String codigo) {
+                int extra = hTable.numC * (LROffset/2);
 		int nodeR = nodeD / 2;
-		int nextLNodeX = x - LROffset + level * levelOffset;
-		int nextRNodeX = x + LROffset - level * levelOffset;
-		int nextNodeY = y + DownOffset;
+		int nextLNodeX = x;//(x - LROffset + level * levelOffset)-10;
+		int nextRNodeX = x;//(x + LROffset - level * levelOffset)+10;
+		int nextNodeY = y; // + DownOffset;
 		int hizq = this.hTable.getIzq()[i];
 		int hder = this.hTable.getDer()[i];
                 g.setColor(Color.BLACK);
 		g.setStroke(new BasicStroke(2));
 		if (this.hTable.getSimbolo()[i] == null) {
-			g.drawLine(nextLNodeX + nodeR, nextNodeY + nodeR, x + nodeR, y + nodeR);
-			g.drawLine(nextRNodeX + nodeR, nextNodeY + nodeR, x + nodeR, y + nodeR);
+			g.drawLine(nextLNodeX + nodeR, nextNodeY, x + nodeR-extra-LROffset, y + nodeR+LROffset);
+			g.drawLine(nextRNodeX + 2*nodeR, nextNodeY + nodeR, x + nodeR+extra+LROffset, y + nodeR+LROffset);
 		}
-		g.fillOval(x, y, nodeD - level, nodeD - level);
+		g.fillOval(x, y, nodeD, nodeD);
 		g.setColor(Color.WHITE);
 		if (this.hTable.getSimbolo()[i] == null) {
 			g.drawString(String.valueOf(i), x + nodeR - 10, y + nodeR + 4);
@@ -177,8 +185,8 @@ public class Interfaz extends JFrame {
 			g.drawString(String.valueOf(this.hTable.getSimbolo()[i]), x + nodeR - 10, y + nodeR + 4);
 		}
 		if (this.hTable.getSimbolo()[i] == null) {
-			paintArbolH(hizq, nextLNodeX, nextNodeY, level + 1,codigo+"0");
-			paintArbolH(hder, nextRNodeX, nextNodeY, level + 1,codigo+"1");
+			paintArbolH(hizq, nextLNodeX-extra-LROffset, nextNodeY+LROffset, level + 1,codigo+"0");
+			paintArbolH(hder, nextRNodeX+extra+LROffset, nextNodeY+LROffset, level + 1,codigo+"1");
                         
 		}else { 
 			g.setColor(Color.BLACK);
@@ -187,7 +195,7 @@ public class Interfaz extends JFrame {
                         this.codigos[i]=codigo;
                         this.valor = this.valor + String.valueOf(this.hTable.getSimbolo()[i])+"="+codigos[i]+"\t";
                             
-                        int cont=0;
+                        
                         
                                               
                     } catch (Exception e) {
